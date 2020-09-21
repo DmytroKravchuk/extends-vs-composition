@@ -16,11 +16,11 @@ function createFrontend(name) {
     const programmer = new createProgrammer(name);
     return {
         ...programmer,
-        ...canCodeAngular(programmer)
+        ...canAngular(programmer)
     }
 }
 
-function canCodeAngular({name}) {
+function canAngular({name}) {
     return {
         angular: () => console.log(`${name} is creating Angular app...`)
     }
@@ -40,9 +40,21 @@ function canNodejs({name}) {
     }
 }
 
+function createFullstack(name) {
+    const programmer = new createProgrammer(name);
+    return {
+        ...programmer,
+        ...canNodejs(programmer),
+        ...canAngular(programmer)
+    }
+}
+
 const programmer = new createProgrammer('Dima');
 programmer.code();
 const frontend = new createFrontend('Alex');
 frontend.angular();
 const backend = new createBackend('Vlad');
 backend.nodejs();
+const fullstack = new createFullstack('Dima');
+fullstack.angular();
+fullstack.nodejs();
